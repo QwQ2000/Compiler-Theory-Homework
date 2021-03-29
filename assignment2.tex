@@ -84,7 +84,7 @@
     \hline
     $s$ & $0$ & $1$ \\
     \hline
-    $0$ & $6$ & $1$ \\
+    $0$ & $\Phi$ & $1$ \\
     \hline
     $1$ & $2$ & $3$ \\
     \hline
@@ -100,6 +100,59 @@
 \end{table}
 \\
 则初态为0的DFA如下图所示：
+\begin{center}
+    \begin{tikzpicture}[scale=0.2]
+    \tikzstyle{every node}+=[inner sep=0pt]
+    \draw [black] (4.1,-30.5) circle (3);
+    \draw (4.1,-30.5) node {$0$};
+    \draw [black] (17,-30.5) circle (3);
+    \draw (17,-30.5) node {$1$};
+    \draw [black] (27.7,-22.1) circle (3);
+    \draw (27.7,-22.1) node {$2$};
+    \draw [black] (37.9,-30.5) circle (3);
+    \draw (37.9,-30.5) node {$3$};
+    \draw [black] (46.1,-22.1) circle (3);
+    \draw (46.1,-22.1) node {$4$};
+    \draw [black] (60.8,-30.5) circle (3);
+    \draw (60.8,-30.5) node {$5$};
+    \draw [black] (7.1,-30.5) -- (14,-30.5);
+    \fill [black] (14,-30.5) -- (13.2,-30) -- (13.2,-31);
+    \draw (10.55,-31) node [below] {$1$};
+    \draw [black] (19.36,-28.65) -- (25.34,-23.95);
+    \fill [black] (25.34,-23.95) -- (24.4,-24.05) -- (25.02,-24.84);
+    \draw (23.41,-26.8) node [below] {$0$};
+    \draw [black] (20,-30.5) -- (34.9,-30.5);
+    \fill [black] (34.9,-30.5) -- (34.1,-30) -- (34.1,-31);
+    \draw (27.45,-31) node [below] {$1$};
+    \draw [black] (26.377,-19.42) arc (234:-54:2.25);
+    \draw (27.7,-14.85) node [above] {$0$};
+    \fill [black] (29.02,-19.42) -- (29.9,-19.07) -- (29.09,-18.48);
+    \draw [black] (30.02,-24.01) -- (35.58,-28.59);
+    \fill [black] (35.58,-28.59) -- (35.28,-27.7) -- (34.65,-28.47);
+    \draw (31.74,-26.79) node [below] {$1$};
+    \draw [black] (40,-28.35) -- (44,-24.25);
+    \fill [black] (44,-24.25) -- (43.09,-24.47) -- (43.8,-25.17);
+    \draw (42.53,-27.77) node [right] {$0$};
+    \draw [black] (39.223,-33.18) arc (54:-234:2.25);
+    \draw (37.9,-37.75) node [below] {$1$};
+    \fill [black] (36.58,-33.18) -- (35.7,-33.53) -- (36.51,-34.12);
+    \draw [black] (43.1,-22.1) -- (30.7,-22.1);
+    \fill [black] (30.7,-22.1) -- (31.5,-22.6) -- (31.5,-21.6);
+    \draw (36.9,-21.6) node [above] {$0$};
+    \draw [black] (49.072,-22.487) arc (77.98794:42.52229:18.692);
+    \fill [black] (58.96,-28.14) -- (58.79,-27.21) -- (58.05,-27.88);
+    \draw (55.51,-24.04) node [above] {$1$};
+    \draw [black] (57.922,-29.659) arc (-109.14277:-130.347:30.159);
+    \fill [black] (48.29,-24.15) -- (48.57,-25.05) -- (49.22,-24.29);
+    \draw (51.8,-27.85) node [below] {$0$};
+    \draw [black] (57.8,-30.5) -- (40.9,-30.5);
+    \fill [black] (40.9,-30.5) -- (41.7,-31) -- (41.7,-30);
+    \draw (49.35,-30) node [above] {$1$};
+    \end{tikzpicture}
+    \end{center}
+\ \\
+\textbf{(2)}
+构造初态为0的NFA如下图所示：
 \begin{center}
     \begin{tikzpicture}[scale=0.2]
     \tikzstyle{every node}+=[inner sep=0pt]
@@ -243,8 +296,8 @@
     \hline
 \end{tabular}
 \end{table}
-\ \\ \\ \\ \\ \\ \\ \\ \\ \\
-因此，得到以X为初态的DFA如下图所示：
+\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+因此，得到以0为初态的DFA如下图所示：
 \begin{center}
     \begin{tikzpicture}[scale=0.2]
     \tikzstyle{every node}+=[inner sep=0pt]
