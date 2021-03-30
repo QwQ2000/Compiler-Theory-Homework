@@ -115,6 +115,7 @@
     \draw (46.1,-22.1) node {$4$};
     \draw [black] (60.8,-30.5) circle (3);
     \draw (60.8,-30.5) node {$5$};
+    \draw [black] (60.8,-30.5) circle (2.4);
     \draw [black] (7.1,-30.5) -- (14,-30.5);
     \fill [black] (14,-30.5) -- (13.2,-30) -- (13.2,-31);
     \draw (10.55,-31) node [below] {$1$};
@@ -700,15 +701,15 @@
 \ \\
 \section*{3.8}
 \noindent 
-\textbf{(1)}$(1|0)*01$\\
-\textbf{(2)}$(1|2|3|4|5|6|7|8|9)(0|1|2|3|4|5|6|7|8|9)*(0|5)|(0|5)$\\
-\textbf{(3)}$0*1(0|10*1)*|1*0(0|10*1)*$\\
-\textbf{(4)}$(A|a)*(B|b)*(C|c)*\dots (Z|z)*$\\
+\textbf{(1)}$(1|0)^*01$\\
+\textbf{(2)}$(1|2|3|4|5|6|7|8|9)(0|1|2|3|4|5|6|7|8|9)^*(0|5)|(0|5)$\\
+\textbf{(3)}$0^*1(0|10^*1)^*|1^*0(1|01^*0)^*$\\
+\textbf{(4)}$(A|a)^*(B|b)^*(C|c)^*\dots (Z|z)^*$\\
 \textbf{(5)}令$d_i = i|\epsilon (i=0,1,\dots,9)$，令$P$表示$0,1,\dots,9$的全排列：\\
 $\mathop{\mid}_{i_0i_1\dots i_9\in P}(r_{i_0}r_{i_1}\dots r_{i_9})$\\
 \textbf{(6)}
 $[\mathop{\mid}_{i\in\{0,1,\dots ,9\}}(r_i)]\cdot [\mathop{\mid}_{i_0i_1\dots i_9\in P}(r_{i_0}r_{i_1}\dots r_{i_9})]$\\
-\textbf{(7)}$b*(ab|a)*$
+\textbf{(7)}$b^*(ab|a)^*$
 \section*{3.12}
 \noindent 
 \textbf{(a)}状态转换矩阵为：\\
@@ -738,7 +739,7 @@ $[\mathop{\mid}_{i\in\{0,1,\dots ,9\}}(r_i)]\cdot [\mathop{\mid}_{i_0i_1\dots i_
         \hline
         1 & 1 & 2 \\
         \hline
-        2 & 0 & 3 \\
+        2 & 0 & $\Phi$ \\
         \hline
     \end{tabular}
     \end{table}
