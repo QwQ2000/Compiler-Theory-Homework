@@ -1,0 +1,247 @@
+\documentclass{article}
+\usepackage{ctex}
+\title{编译原理 作业3}
+\author{} 
+\date{}
+\usepackage[a4paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry} 
+\usepackage{graphicx} 
+\usepackage{makecell}
+
+\begin{document}
+\section*{4.1}
+\noindent 
+\textbf{(1)}消去左递归得文法：\\
+$S\rightarrow a|\^{}|(T)\\
+T\rightarrow ST'\\
+T'\rightarrow ,ST'|\epsilon$\\
+则不带回溯的递归子程序如下所示：
+\begin{tabbing}
+    \hspace{0.5cm} \= \hspace{0.5cm}\= \kill
+    PROCEDURE T';\\
+    BEGIN\\
+    \>S;T';\\
+    END;\\ \\
+    PROCEDURE T;\\
+    BEGIN\\
+    \>IF\ SYM=',' THEN\\
+    \>BEGIN\\
+    \> \>ADVANCE;\\
+    \> \>S;T';\\
+    \>END;\\
+    END;\\\\
+    PROCEDURE S;\\
+    BEGIN\\
+    \>IF SYM='a' OR SYM='$\^{}$' THEN\\
+    \>\>ADVANCE;\\
+    \>ELSE IF SYM='(' THEN\\
+    \>BEGIN\\
+    \>\>ADVANCE;\\
+    \>\>T;\\
+    \>\>IF SYM=')' THEN ADVANCE;\\
+    \>\>ELSE ERROR;\\
+    \>END;\\
+    \>ELSE ERROR;\\
+    END;
+\end{tabbing}
+\textbf{(2)}FIRST(S)=\{a,$\^{}$,(\}\\
+FIRST(T)=\{a,$\^{}$,(\}\\
+FIRST(T')=\{,\ ,$\epsilon$\}\\
+FOLLOW(S)=\{\#,\ ,\ ,)\}\\
+FOLLOW(T)=\{)\}\\
+FOLLOW(T')=\{)\}\\
+由于\textbf{(1)}已经消去了左递归，故文法不含左递归；考察S,T,T'的各产生式，其候选首符集显然不相交；\\
+又FIRST(T')$\cap$FOLLOW(T')=$\Phi$.综上所述，文法为LL(1)文法.
+预测分析表如下所示：
+\begin{table}[h]
+    \centering
+\begin{tabular}{|p{2cm}<{\centering}|p{2cm}<{\centering}|p{2cm}<{\centering}|p{2cm}<{\centering}|p{2cm}<{\centering}|p{2cm}<{\centering}|p{2cm}<{\centering}|}   
+    \hline
+    \ & a & $\^{}$ & ( & ) & , & \# \\
+    \hline
+    S & S$\rightarrow$a & S$\rightarrow\^{}$ & S$\rightarrow$(T) & \ & \ & \ \\
+    \hline
+    T & T$\rightarrow$ST' & T$\rightarrow$ST' & T$\rightarrow$ST' & & & \\
+    \hline
+    T' & & & & T'$\rightarrow\epsilon$& T'$\rightarrow$,ST' & \\
+    \hline
+\end{tabular}
+\end{table}
+\\ \\
+\section*{4.2}
+\noindent 
+\textbf{(1)}FIRST(E)=\{(,a,b,$\^{}$)\}\\
+FIRST(E')=\{+,$\epsilon$\}\\
+FIRST(T)=\{(,a,b,$\^{}$)\}\\
+FIRST(T')=\{(,a,b,$\^{}$),$\epsilon$\}\\
+FIRST(F)=\{(,a,b,$\^{}$)\}\\
+FIRST(F')=\{*,$\epsilon$\}\\
+FIRST(P)=\{(,a,b,$\^{}$\}\\
+FOLLOW(E)=\{\#,)\}\\
+FOLLOW(E')=\{\#,)\}\\
+FOLLOW(T)=\{\#,+,)\}\\
+FOLLOW(T')=\{\#,+,)\}\\
+FOLLOW(F)=\{(,a,b,$\^{}$,),+,\#\}\\
+FOLLOW(F')=\{(,a,b,$\^{}$,),+,\#\}\\
+FOLLOW(P)=\{(,a,b,$\^{}$,),+,*,\#\}\\
+\textbf{(2)}
+观察易得，此文法不含有左递归.\\
+FIRST(+E)$\cap$FIRST($\epsilon$)=$\Phi$\\
+FIRST(T)$\cap$FIRST($\epsilon$)=$\Phi$\\
+FIRST(*F')$\cap$FIRST($\epsilon$)=$\Phi$\\
+FIRST((E))$\cap$FIRST(a)$\cap$FIRST(b)$\cap$FIRST($\^{}$)=$\Phi$
+FOLLOW(E')$\cap$FIRST(E')=$\Phi$\\
+FOLLOW(T')$\cap$FIRST(T')=$\Phi$\\
+FOLLOW(F')$\cap$FIRST(F')=$\Phi$\\
+综上所述，此文法为LL(1)文法.\\
+\textbf{(3)}
+\begin{table}[h]
+    \centering
+\begin{tabular}{|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|p{1.4cm}<{\centering}|}   
+    \hline
+    & + & * & ( & ) & a & b & $\^{}$ & \# \\
+    \hline
+    E &&& E$\rightarrow$TE' && E$\rightarrow$TE' & E$\rightarrow$TE' & E$\rightarrow$TE' &\\
+    \hline
+    E' & E'$\rightarrow$+E &&& E'$\rightarrow\epsilon$ &&&& E'$\rightarrow\epsilon$ \\
+    \hline
+    T &&& T$\rightarrow$FT' && T$\rightarrow$FT' & T$\rightarrow$FT' & T$\rightarrow$FT' &\\
+    \hline
+    T' & T'$\rightarrow\epsilon$ & & T'$\rightarrow$T & T'$\rightarrow\epsilon$ & T'$\rightarrow$T & T'$\rightarrow$T & T'$\rightarrow$T & T'$\rightarrow\epsilon$ \\
+    \hline
+    F &&& F$\rightarrow$PF' && F$\rightarrow$PF' & F$\rightarrow$PF' & F$\rightarrow$PF' & \\
+    \hline
+    F' & F'$\rightarrow\epsilon$ & F'$\rightarrow$*F' & F'$\rightarrow\epsilon$ & F'$\rightarrow\epsilon$ & F'$\rightarrow\epsilon$ & F'$\rightarrow\epsilon$ & F'$\rightarrow\epsilon$ & F'$\rightarrow\epsilon$ \\
+    \hline
+    P &&& P$\rightarrow$(E) && P$\rightarrow$a & P$\rightarrow$ b & P$\rightarrow$$\^{}$ &\\
+    \hline
+\end{tabular}
+\end{table}
+\\
+\textbf{(4)}
+\begin{tabbing}
+    \hspace{0.5cm} \= \hspace{0.5cm}\= \hspace{0.5cm}\= \kill
+    PROCEDURE E;\\
+    BEGIN\\
+    \>IF SYM='(' OR SYM='a' OR SYM='b' OR SYM='$\^{}$' THEN \\
+    \>BEGIN\\
+    \>\>T;E';\\
+    \>END;\\
+    \>ELSE ERROR;\\
+    END;\\\\
+
+    PROCEDURE E';\\
+    BEGIN\\
+    \>IF SYM='+' THEN\\
+    \>BEGIN\\
+    \>\>ADVANCE;E;\\
+    \>END;\\
+    \>ELSE IF SYM!=')' AND SYM!='\#' THEN ERROR;\\
+    END;\\\\
+
+    PROCEDURE T;\\
+    BEGIN\\
+    \>IF SYM='(' OR SYM='a' OR SYM='b' OR SYM='$\^{}$' THEN\\
+    \>BEGIN\\
+    \>\>F;T';\\
+    \>END;\\ 
+    \>ELSE ERROR;
+    END;\\\\
+
+    PROCEDURE T';\\
+    BEGIN\\
+    \>IF SYM='(' OR SYM='a' OR SYM='b' OR SYM='$\^{}$' THEN T;\\
+    ELSE IF SYM='*' THEN ERROR;\\
+    END;\\\\
+
+    PROCEDURE F;\\
+    BEGIN\\
+    \>IF SYM='(' OR SYM='a' OR SYM='b' OR SYM='$\^{}$' THEN\\
+    \>BEGIN\\
+    \>\>P;F';\\
+    \>END;\\ 
+    \>ELSE ERROR;
+    END;\\\\
+
+    PROCEDURE F';\\
+    BEGIN\\
+    \>IF SYM='*' THEN\\
+    \>BEGIN\\
+    \>\>ADVANCE;F';\\
+    \>END;\\
+    END;\\\\
+
+    PROCEDURE P;\\
+    BEGIN\\
+    \>IF SYM='a' OR SYM='b' OR SYM='$\^{}$' THEN ADVANCE;\\
+    \>ELSE IF SYM='(' THEN\\
+    \>\>ADVANCE;E;\\
+    \>\>IF SYM=')' THEN ADVANCE;\\
+    \>\>ELSE ERROR;\\
+    \>END;\\
+    \>ELSE ERROR;\\
+    END;
+\end{tabbing}
+\section*{4.3}
+\noindent 
+\textbf{(1)}是LL(1)文法，满足LL(1)文法的三个条件.\\
+\textbf{(2)}不是LL(1)文法，A违反了条件3.\\
+\textbf{(3)}不是LL(1)文法，A和B违反了条件3.\\
+\textbf{(4)}是LL(1)文法，满足LL(1)文法的三个条件.
+\section*{4.4}
+\noindent 
+\textbf{(1)}FIRST(Expr)=\{-,(,id\}\\
+FIRST(ExprTail)=\{-,$\epsilon$\}\\
+FIRST(Var)=\{id\}\\
+FIRST(VarTail)=\{(,$\epsilon$\}\\
+FOLLOW(Expr)=\{\#,)\}\\
+FOLLOW(ExprTail)=\{\#,)\}\\
+FOLLOW(Var)=\{-,\#,)\}\\
+FOLLOW(VarTail)=\{-,\#,)\}\\
+则LL(1)分析表如下所示：
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{2.6cm}<{\centering}|p{2.6cm}<{\centering}|p{2.6cm}<{\centering}|p{2.6cm}<{\centering}|p{2.6cm}<{\centering}|p{2.6cm}<{\centering}|}
+        \hline
+        & - & id & ( & ) & \# \\
+        \hline
+        Expr& Expr$\rightarrow$-Expr & Expr$\rightarrow$Var ExprTail & Expr$\rightarrow$(Expr) && \\
+        \hline
+        ExprTail & ExprTail$\rightarrow$-Expr &&& ExprTail$\rightarrow\epsilon$ & ExprTail$\rightarrow\epsilon$ \\
+        \hline
+        Var && Var$\rightarrow$id VarTail &&& \\
+        \hline
+        VarTail & VarTail$\rightarrow\epsilon$ && VarTail$\rightarrow$(Expr) & VarTail$\rightarrow\epsilon$ & \\
+        \hline
+    \end{tabular}
+\end{table}
+\\
+\textbf{(2)}
+\begin{tabbing}
+    \hspace{1.5cm} \= \hspace{7cm}\= \hspace{3cm}\= \hspace{3cm}\= \kill
+    \textbf{步骤}\>\textbf{符号栈}\>\textbf{输入串}\>\textbf{所用产生式}\\
+    0\>\#Expr\>id-\ -id((id))\#\\
+    1\>\#ExprTail Var\>id-\ -id((id))\#\>Expr$\rightarrow$Var ExprTail\\
+    2\>\#ExprTail VarTail id\>id-\ -id((id))\#\>Var$\rightarrow$id VarTail\\
+    3\>\#ExprTail VarTail\>-\ -id((id))\#\>\\
+    4\>\#ExprTail\>-\ -id((id))\#\>VarTail$\rightarrow\epsilon$\\
+    5\>\#Expr - \>-\ -id((id))\#\>ExprTail$\rightarrow$-Expr\\
+    6\>\#Expr\>-id((id))\#\\
+    7\>\#Expr -\>-id((id))\#\>Expr$\rightarrow$-Expr\\
+    8\>\#Expr\>id((id))\#\>\\
+    9\>\#ExprTail Var\>id((id))\#\>Expr$\rightarrow$Var ExprTail\\
+    10\>\#ExprTail VarTail id\>id((id))\#\>Var$\rightarrow$id VarTail\\
+    11\>\#ExprTail VarTail\>((id))\#\\
+    12\>\#ExprTail ) Expr (\>((id))\#\>VarTail$\rightarrow$(Expr)\\
+    13\>\#ExprTail ) Expr\>(id))\#\\
+    14\>\#ExprTail ) ) Expr (\>(id))\#\>Expr$\rightarrow$(Expr)\\
+    15\>\#ExprTail ) ) Expr\>id))\#\\
+    16\>\#ExprTail ) ) ExprTail Var\>id))\#\>Expr$\rightarrow$Var ExprTail\\
+    17\>\#ExprTail ) ) ExprTail VarTail id\>id))\#\>Var$\rightarrow$id VarTail\\
+    18\>\#ExprTail ) ) ExprTail VarTail\>))\\
+    19\>\#ExprTail ) ) ExprTail\>))\#\>VarTail$\rightarrow\epsilon$\\
+    20\>\#ExprTail ) )\>))\#\>ExprTail$\rightarrow\epsilon$\\
+    21\>\#ExprTail )\>)\#\\
+    22\>\#ExprTail\>\#\\
+    23\>\#\>\#\>ExprTail$\rightarrow\epsilon$\\
+\end{tabbing}
+\end{document}
