@@ -18,7 +18,7 @@
 \textbf{2.}$\{a^nb^mc^m\ |\ n\geq 0,m\geq 1\}$
 \section*{三、}
 \noindent
-对于句子i+i-i，该文法有两种不同的推导：\\
+对于句子i+i-i，该文法有两种不同的推导，其对应的语法树不同：\\
 $E\Rightarrow E+E\Rightarrow E+E-E\Rightarrow E+E-i\Rightarrow E+i-i\Rightarrow i+i-i$\\
 $E\Rightarrow E-E\Rightarrow E+E-E\Rightarrow i+E-E\Rightarrow i+i-E\Rightarrow i+i-i$\\
 因此该文法具有二义性，改写后的文法如下所示：\\
@@ -320,7 +320,7 @@ $S\rightarrow a\ |\ \^{}\ |\ (T)$\\
 $T\rightarrow ST'$\\
 $T'\rightarrow \epsilon\ |\ ,ST'$\\
 首先，由于已经消除左递归，该文法必然不含左递归.\\
-考察各非终结符的产生式，有$FIRST(a)$、$FIRST(\^{})$、$FIRST(T)$两两不相交，\\
+考察各非终结符的产生式，有$FIRST(a)$、$FIRST(\^{})$、$FIRST((T))$两两不相交，\\
 $FIRST(\epsilon)\cap FIRST(,ST')=\Phi$.\\
 又有$FIRST(T')\cap FOLLOW(T')=\Phi$.\\
 综上所述，该文法为LL(1)文法.\\
@@ -386,7 +386,7 @@ I_9=GOTO(I_7,a)=\{[A\rightarrow DbDa\cdot,\#]\}$\\
     \hline
     $I_0$ & $r_3$ & $r_4$ && 2 & 3 & 1\\
     \hline
-    $I_1$ && acc &&&& \\
+    $I_1$ &&& acc &&& \\
     \hline
     $I_2$ & $s_4$ &&&&& \\
     \hline
