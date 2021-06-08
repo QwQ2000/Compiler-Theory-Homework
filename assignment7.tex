@@ -1,0 +1,205 @@
+\documentclass{article}
+\usepackage{ctex}
+\title{编译原理 作业7}
+\author{} 
+\date{}
+\usepackage[a4paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry} 
+\usepackage{graphicx} 
+\usepackage{makecell}
+\usepackage[linguistics]{forest}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{1.}
+\noindent
+\textbf{a * ( - b + c)：}a||0||b||-||c||+||*
+
+\textbf{a + b * ( c + d / e)：}a||b||c||d||e||/||+||*||+
+
+\textbf{- a + b * ( - c + d)：} 0||a||b||0||c||d||+||-||*||+||-
+
+\textbf{not A or not ( C or not D )：}A||not||C||D||not||or||not||or
+
+\textbf{( A and B ) or ( not C or D )：}A||B||and||C||not||D||or||or 
+
+\textbf{( A or B ) and ( C or not D and E )：}A||B||or||C||D||not||E||and||or||and
+
+\textbf{if ( x + y ) * z = 0 then ( a + b ) ↑ c else a ↑ b ↑ c：}
+
+(x+y)\*z=0||if||(a+b)↑：x||y||+||z||*||if||a||b||+||c||↑||then||a||b||↑||c||↑||else\\
+
+\textbf{4.}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        (1) & uminus & $C$ & / & $T_1$\\
+        \hline
+        (2) & + & $T_1$ & D & $T_2$\\
+        \hline
+        (3) & * & $B$ & $T_2$ & $T_3$\\
+        \hline
+        (4) & := & $T_3$ & / &$A$\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{5.}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        (1) & $T_1:=$ & (13) & $T_{10}:=W_A*T_8$\\
+        \hline
+        (2) & $T_1:=T_1+j$ & (14) & $T_{11}:=T_9[T_{10}]$\\
+        \hline
+        (3) & $T_2:=A-C_A$ & (15) & $T_{12}:=C-C_C$\\ 
+        \hline
+        (4) & $T_3:=W_A*T_1$ & (16) & $T_{13}:=W_C*T_{11}$\\ 
+        \hline
+        (5) & $T_4:=i*N_{B2}$ & (17) & $T_{14}:=T_{12}[T_{13}]$\\ 
+        \hline
+        (6) & $T_4:=T_4+j$ & (18) & $T_{15}:=T_7+T_{14}$\\ 
+        \hline
+        (7) & $T_5:=B-C_B$ & (19) & $T_{16}:=i+j$\\ 
+        \hline
+        (8) & $T_6:=W_B*T_4$ & (20) & $T_{17}:=d-C_d$\\ 
+        \hline
+        (9) & $T_7:=T_5[T_6]$ & (21) & $T_{18}:=W_d*T_{16}$\\ 
+        \hline
+        (10) & $T_8:=k*N_{A2}$ & (22) & $T_{19}:=T_{17}[T_{18}]$\\ 
+        \hline
+        (11) & $T_8:=T_8+1$ & (23) & $T_{20}:=T_{15}+T_{19}$\\ 
+        \hline
+        (12) & $T_9:=A-C_A$ & (24) & $T_2[T_3]:=T_{20}$\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{6.}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        (1) & or & $C$ & D & $T_1$\\
+        \hline
+        (2) & not & $T_1$ & / & $T_2$\\
+        \hline
+        (3) & and & $B$ & $T_2$ & $T_3$\\
+        \hline
+        (4) & or & $A$ & $t_3$ &$t_4$\\
+        \hline
+    \end{tabular}
+\end{table}
+\\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        (1) & (jnz, A, -, 0) & (5) & (jnz, C, -, (4))\\
+        \hline
+        (2) & (j, -, -, (3)) & (6) & (j, -, -, (7))\\
+        \hline
+        (3) & (jnz, B, -, (5)) & (7) & (jnz, D, -, (5))\\ 
+        \hline
+        (4) & (j, -, -, 0) & (8) & (j, -, -, (1))\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{7.}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        (1) & $(j<, A, C, (3))$ & (9) & $(j, -, -, (1))$\\
+        \hline
+        (2) & $(j, -, -, 0)$ & (10) & $(j\leq, A, D, (12))$\\
+        \hline
+        (3) & $(j<, B, D, (5))$ & (11) & $(j, -, -, (1))$\\ 
+        \hline
+        (4) & $j, -, -, 0$ & (12) & $(+, A, 2, T_2)$\\ 
+        \hline
+        (5) & $(j=, A, 1, (7))$ & (13) & $(:=, T_2, -, A)$\\ 
+        \hline
+        (6) & $(j, -, -, (10))$ & (14) & $(j, -, -, (10))$\\ 
+        \hline
+        (7) & $+, C, 1, T_1$ & (15) & (j, -, -, (1))\\ 
+        \hline
+        (8) & $(:=, T_1, -, C)$ & & \\
+        \hline
+    \end{tabular}    
+\end{table}
+
+\textbf{8.}
+\textbf{(1)}E->E1 or M E2 \{E1.truelist := merge(E1.truelist, makelist(nextquad));
+
+​ emit('j, -, -, 0');
+
+​ backpatch(E1.falselist, M.quad);
+
+​ E.truelist := merge(E1.truelist, E2.truelist);
+
+​ E.falselist := E2.falselist;\}
+
+\textbf{(2)}E->E1 and M E2 \{backpatch(E1.truelist, M.quad);
+
+​ E.truelist := E2.truelist;
+
+​ E.falselist := merge(E1.falselist, E2.falselist);\}
+
+\textbf{(3)}E->not E1 \{E.truelist := E1.falselist;
+
+​ E.falselist := E1.truelist;\}
+
+\textbf{(4)}E->(E1) \{E.truelist := E1.truelist;
+
+​ E.falselist := E1.falselist;\}
+
+\textbf{(5)}E->id1 relop id2 \{E.falselist := makelist(nextquad);
+
+​ emit('j' (relop.op)-1 ',' id1.place ',' id2.place ',' '0')\}
+
+\textbf{(6)}E->id \{E.falselist := makelist(nextquad);
+
+​ emit('jnz' ',' (id.place)-1 ',' '-' ',' '0');\}
+
+\textbf{(7)}M->$\epsilon$ \{M.quad := nextquad\}\\
+
+\textbf{11.}
+\textbf{(1)} S->for (E1; M1 E2; M2 E3) M3 S1 \{backpatch(S1.nextlist, M2.quad);
+
+​ backpatch(E2.truelist, M3.quad);
+
+​ backpatch(E3.truelist, M1.quad);
+
+​ S.nextlist := E2.falselist;\}
+
+\textbf{(2)} M->$\epsilon$ \{M.quad := nextquad;\}\\
+
+\textbf{15.}
+\textbf{(1)} P->D; E
+
+\textbf{(2)} D->D; D
+
+\textbf{(3)} D->id: T \{addtype(id.entry, T.type)\}
+
+\textbf{(4)} T->list of T \{T.type = list(T.type)\}
+
+\textbf{(5)} T->char \{T.type = char\}
+
+\textbf{(6)} T->integer \{T.type = integer\}
+
+\textbf{(7)} E->(L) \{E.type = list\}
+
+\textbf{(8)} E->literal \{E.type = char\}
+
+\textbf{(9)} E->num \{E.type = integer\}
+
+\textbf{(10)} E->id \{E.type = lookup(id.entry)\}
+
+\textbf{(11)} L->E, L
+
+\textbf{(12)} L->E \{L.type = E.type\}
+\end{document}
